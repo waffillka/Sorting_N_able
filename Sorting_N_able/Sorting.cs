@@ -28,5 +28,23 @@ namespace Sorting_N_able
 
             return collection;
         }
+
+        public static IList<T> BubbleSort<T>(IList<T> collection)
+            where T : IComparable<T>
+        {
+            for (int i = 0; i + 1 < collection.Count; ++i)
+            {
+                for(int j = 0; j + 1 < collection.Count - i; ++j)
+                {
+                    if (collection[j + 1].CompareTo(collection[j]) == -1)
+                    {
+                        T temp = collection[j + 1];
+                        collection[j + 1] = collection[j];
+                        collection[j] = temp;
+                    }
+                }
+            }
+            return collection;
+        }
     }
 }
