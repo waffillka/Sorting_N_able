@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -30,7 +29,7 @@ namespace Sorting_N_able.Test
 
         [Theory]
         [InlineData(new string[] { "c", "a", "b", "ab", "ac", "bb", "ca" }, new string[] { "a", "ab", "ac", "b", "bb", "c", "ca" })]
-        [InlineData(new string[] { "c", "a", "b" }, new string[] { "a", "b", "c"})]
+        [InlineData(new string[] { "c", "a", "b" }, new string[] { "a", "b", "c" })]
         public void SortBySimpleInsertsStringTests(string[] array, string[] expected)
         {
             var arrayList = (List<string>)Sorting.SortBySimpleInserts(array.ToList());
@@ -38,7 +37,7 @@ namespace Sorting_N_able.Test
         }
 
         [Theory]
-        [InlineData(new double[] { 1.5, 1.9, 1.8, 1.1, 1.3, 1.7, 1.6, 1.2, 1.4, 1.0 }, new double[] { 1.0, 1.1 , 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9 })]
+        [InlineData(new double[] { 1.5, 1.9, 1.8, 1.1, 1.3, 1.7, 1.6, 1.2, 1.4, 1.0 }, new double[] { 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9 })]
         [InlineData(new double[] { 1.5, 1.9, 1.8, 1.1, 1.3, }, new double[] { 1.1, 1.3, 1.5, 1.8, 1.9 })]
         public void SortBySimpleInsertsDoubleTests(double[] array, double[] expected)
         {

@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Sorting_N_able.CustomList;
+using System;
 
 namespace Sorting_N_able
 {
@@ -7,13 +7,33 @@ namespace Sorting_N_able
     {
         static void Main(string[] args)
         {
-            //Console.WriteLine("Hello World!");
-            //var arr = new int[] { 2, 4, 5, 6, 7, 7 };
-            var list = new List<string>() { "c", "a", "b", "ab", "ac", "bb", "ca"}; //{ 3, 2, 1, 3, 2, 1, 3, 2, 1 };
-            list = (List<string>)Sorting.SortBySimpleInserts(list);
+            ////Console.WriteLine("Hello World!");
+            ////var arr = new int[] { 2, 4, 5, 6, 7, 7 };
+            //var list = new List<string>() { "c", "a", "b", "ab", "ac", "bb", "ca"}; //{ 3, 2, 1, 3, 2, 1, 3, 2, 1 };
+            //list = (List<string>)Sorting.SortBySimpleInserts(list);
 
-            foreach (var t in list)
+            //foreach (var t in list)
+            //    Console.WriteLine(t);
+
+            var list = new CustomList<int>();
+            for (int i = 0; i < 6; i++)
+            {
+                list.Push_front(i);
+            }
+
+            foreach (var t in list.ToList())
+            {
                 Console.WriteLine(t);
+            }
+            Console.WriteLine("dsdsds" + list[0]);
+
+            list.Push_back(333);
+            foreach (var t in list.ToList())
+            {
+                Console.WriteLine(t);
+            }
         }
     }
+
+
 }

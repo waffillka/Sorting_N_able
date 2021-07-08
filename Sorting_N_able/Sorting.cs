@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sorting_N_able
 {
@@ -13,7 +10,7 @@ namespace Sorting_N_able
             where T : IComparable<T>
         {
             int j;
-            
+
             for (int i = 1; i < collection.Count(); ++i)
             {
                 j = i;
@@ -34,7 +31,7 @@ namespace Sorting_N_able
         {
             for (int i = 0; i + 1 < collection.Count; ++i)
             {
-                for(int j = 0; j + 1 < collection.Count - i; ++j)
+                for (int j = 0; j + 1 < collection.Count - i; ++j)
                 {
                     if (collection[j + 1].CompareTo(collection[j]) == -1)
                     {

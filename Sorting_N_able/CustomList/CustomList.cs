@@ -1,20 +1,119 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sorting_N_able.CustomList
 {
-    class CustomList<T>
+    class CustomList<T> //, IList<T>
     {
         private Node<T> head;
         public int Size { get; private set; }
 
+        public T this[int index]
+        {
+            get
+            {
+                if (head == null)
+                {
+                    throw new ArgumentNullException("fsafsd");
+                }
+
+                int count = 0;
+                var temp = head;
+
+                while (temp.Next != null && count != index)
+                {
+                    temp = temp.Next;
+                    count++;
+                }
+
+                if (count != index)
+                    throw new ArgumentOutOfRangeException("sadgfsdf");
+
+                return temp.Item;
+            }
+
+            set
+            {
+                if (head == null)
+                {
+                    throw new ArgumentNullException("fsafsd");
+                }
+
+                int count = 0;
+                var temp = head;
+
+                while (temp.Next != null && count != index)
+                {
+                    temp = temp.Next;
+                    count++;
+                }
+
+                if (count != index)
+                {
+                    temp.Next = new Node<T>(value, null);
+                    Size++;
+                }
+                else
+                {
+                    temp.Item = value;
+                }
+            }
+        }
         public CustomList()
         {
             this.Size = 0;
             this.head = null;
+        }
+
+        public T RemoveAt(int n)
+        {
+            if (Size == 0)
+            {
+                return default(T);
+            }
+            else if (n > Size - 1)
+                return default(T);
+            else if (n == 0)
+            {
+                return Pop_front();
+            }
+
+            var temp = head;
+
+            for (int i = 0; i < n; i++)
+            {
+                temp = temp.Next;
+            }
+
+            var toDelete = temp.Next;
+            temp.Next = toDelete.Next;
+            --Size;
+
+            return toDelete.Item;
+        }
+
+        public void InsertAt(T item, int index)
+        {
+            if (index > Size - 1)
+            {
+                throw new ArgumentOutOfRangeException("sfcds");
+            }
+            else if (index == 0)
+            {
+                Push_front(item);
+            }
+            else
+            {
+                var temp = head;
+
+                for (int i = 0; i < Size; i++)
+                {
+                    temp = temp.Next;
+                }
+                var newNode = new Node<T>(item, temp.Next);
+                temp.Next = newNode;
+                Size++;
+            }
         }
 
         public bool Empty() => head == null;
@@ -43,7 +142,7 @@ namespace Sorting_N_able.CustomList
                 Push_front(info);
 
             var temp = head;
-            while(temp.Next != null)
+            while (temp.Next != null)
             {
                 temp = temp.Next;
             }
@@ -59,7 +158,7 @@ namespace Sorting_N_able.CustomList
             Node<T> temp, temp2;
             temp2 = null;
             temp = head;
-            while(temp.Next != null)
+            while (temp.Next != null)
             {
                 temp2 = temp;
                 temp = temp.Next;
