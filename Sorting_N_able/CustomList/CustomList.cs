@@ -14,7 +14,7 @@ namespace Sorting_N_able.CustomList
             {
                 if (head == null)
                 {
-                    throw new ArgumentNullException("fsafsd");
+                    throw new ArgumentNullException("List is empty");
                 }
 
                 int count = 0;
@@ -27,7 +27,7 @@ namespace Sorting_N_able.CustomList
                 }
 
                 if (count != index)
-                    throw new ArgumentOutOfRangeException("sadgfsdf");
+                    throw new ArgumentOutOfRangeException("Out of range");
 
                 return temp.Item;
             }
@@ -36,7 +36,7 @@ namespace Sorting_N_able.CustomList
             {
                 if (head == null)
                 {
-                    throw new ArgumentNullException("fsafsd");
+                    head = new Node<T>(value, null);
                 }
 
                 int count = 0;
@@ -72,7 +72,7 @@ namespace Sorting_N_able.CustomList
                 return default(T);
             }
             else if (n > Size - 1)
-                return default(T);
+                throw new ArgumentOutOfRangeException("Out of range");
             else if (n == 0)
             {
                 return Pop_front();
@@ -148,6 +148,7 @@ namespace Sorting_N_able.CustomList
             }
 
             temp.Next = new Node<T>(info, null);
+            Size++;
         }
 
         public T Pop_back()
