@@ -1,5 +1,7 @@
 ﻿using Sorting_N_able.CustomList;
+using Sorting_N_able.WordCounter;
 using System;
+using System.Collections.Generic;
 
 namespace Sorting_N_able
 {
@@ -15,23 +17,25 @@ namespace Sorting_N_able
             //foreach (var t in list)
             //    Console.WriteLine(t);
 
-            var list = new CustomList<int>();
-            for (int i = 0; i < 6; i++)
-            {
-                list.Push_front(i);
-            }
+            //var list = new CustomList<int>();
+            //for (int i = 0; i < 6; i++)
+            //{
+            //    list.Push_front(i);
+            //}
 
-            foreach (var t in list.ToList())
-            {
-                Console.WriteLine(t);
-            }
-            Console.WriteLine("dsdsds" + list[0]);
+            //foreach (var t in list.ToList())
+            //{
+            //    Console.WriteLine(t);
+            //}
+            //Console.WriteLine("dsdsds" + list[0]);
 
-            list.Push_back(333);
-            foreach (var t in list.ToList())
-            {
-                Console.WriteLine(t);
-            }
+            //list.Push_back(333);
+            //foreach (var t in list.ToList())
+            //{
+            //    Console.WriteLine(t);
+            //}
+
+            //WordCounter.WordCounter.WordIterator("d:\\EPAM\\N-able\\Lessons\\FirstLessonSorting\\Sorting_N_able\\Sorting_N_able\\WordCounter\\TestText.txt");
         }
     }
 
