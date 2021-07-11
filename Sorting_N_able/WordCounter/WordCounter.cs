@@ -1,37 +1,73 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace Sorting_N_able.WordCounter
 {
-    public static class WordCounter
+    public class WordCounter
     {
-        //private Dictionary<string, int> topWords;
-        //private int countTopWord;
-        //private string path;
+        private ConcurrentDictionary<string, int> topWord;
 
-        //public WordCounter()
-        //{
-        //    this.countTopWord = 0;
-        //}
+        public WordCounter(int count)
+        {
+            topWord = new ConcurrentDictionary<string, int>(count);
+        }
 
-        //public WordCounter(string path, int countTopWord)
-        //{
-        //    this.countTopWord = countTopWord;
-        //    this.path = path;
-        //}
+        private void ChengeOrAddItem(string nameFile, int count)
+        {
+            lock(topWord)
+            { 
+                if(topWord.Count <= topWord.CountTopWord)
+                {
+                    topWord.Add(nameFile, count);
+                }
+                else
+                {
+                    if (!topWord.IsEmpty())
+                    {
+                        if (!topWord.Update(nameFile, count))
+                        {
+                            string key = topWord.FirstOrDefault().Key;
+                            int i = topWord.FirstOrDefault().Value;
 
-        public static void WordIterator(string path)
+                            foreach(var item in topWord)
+                            {
+                                if(item.Value < i)
+                                {
+                                    key = item.Key;
+                                    i = item.Value;
+                                }
+                            }
+
+                            if (count > i)
+                            {
+                                topWord.Remove(key);
+                                topWord.Add(nameFile, count);
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+        public void WordIteratorParallel(string[] paths)
+        {
+            foreach (var item in paths)
+            {
+                new Thread(new ThreadStart(() => WordIterator(item))).Start();
+            }
+        }
+
+        private void WordIterator(string path)
         {
             StringBuilder tempString = new();
             char tempChar;
 
-            using(StreamReader file = new StreamReader(path))
+            using (StreamReader file = new StreamReader(path))
             {
-                while(file.Peek() > -1)
+                while (file.Peek() > -1)
                 {
                     tempChar = char.ToLower((char)file.Read());
                     if (char.IsLetter(tempChar))
@@ -54,7 +90,7 @@ namespace Sorting_N_able.WordCounter
             }
         }
 
-        private static void ChengeOrCreateWordFile(string word)
+        private void ChengeOrCreateWordFile(string word)
         {
             int count = 1;
             try
@@ -65,7 +101,7 @@ namespace Sorting_N_able.WordCounter
                     file.Write(array, 0, array.Length);
                 }
             }
-            catch(IOException)
+            catch (IOException)
             {
 
                 using (FileStream file = new FileStream(word + ".txt", FileMode.Open))
@@ -84,6 +120,8 @@ namespace Sorting_N_able.WordCounter
                     file.Close();
                 }
             }
+
+            ChengeOrAddItem(word, count);
         }
     }
 }

@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Concurrent;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Sorting_N_able.WordCounter
 {
-    class ConcurrentList<T>: IEnumerable<T>, ICollection<T>
+    class ConcurrentList<T> : IEnumerable<T>, ICollection<T>
     {
         private List<T> _list = new List<T>();
         private ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
 
-       public int Count
+        public int Count
         {
             get
             {

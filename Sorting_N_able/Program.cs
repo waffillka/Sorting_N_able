@@ -1,9 +1,4 @@
-﻿using Sorting_N_able.CustomList;
-using Sorting_N_able.WordCounter;
-using System;
-using System.Collections.Generic;
-
-namespace Sorting_N_able
+﻿namespace Sorting_N_able
 {
     class Program
     {
