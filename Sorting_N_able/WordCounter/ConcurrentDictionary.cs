@@ -8,24 +8,27 @@ namespace Sorting_N_able.WordCounter
 {
     class ConcurrentDictionary<T, D> : IEnumerable<KeyValuePair<T, D>>, IEnumerable
     {
-        private ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
+        static Mutex _lock = new Mutex();
         private Dictionary<T, D> topWord;
         public int CountTopWord { get; } = 10;
 
         public ConcurrentDictionary() { }
-
+        public Dictionary<T, D> GetDictionary()
+        {
+            return topWord;
+        }
         public int Count
         {
             get
             {
                 try
                 {
-                    _lock.EnterReadLock();
+                    _lock.WaitOne();
                     return topWord.Count;
                 }
                 finally
                 {
-                    _lock.ExitReadLock();
+                    _lock.ReleaseMutex();
                 }
             }
         }
@@ -34,12 +37,12 @@ namespace Sorting_N_able.WordCounter
         {
             try
             {
-                _lock.EnterReadLock();
+                _lock.WaitOne();
                 return topWord.FirstOrDefault();
             }
             finally
             {
-                _lock.ExitReadLock();
+                _lock.ReleaseMutex();
             }
         }
 
@@ -47,7 +50,7 @@ namespace Sorting_N_able.WordCounter
         {
             try
             {
-                _lock.EnterReadLock();
+                _lock.WaitOne();
                 if (topWord.ContainsKey(key))
                 {
                     topWord[key] = value;
@@ -57,7 +60,7 @@ namespace Sorting_N_able.WordCounter
             }
             finally
             {
-                _lock.ExitReadLock();
+                _lock.ReleaseMutex();
             }
         }
 
@@ -65,12 +68,12 @@ namespace Sorting_N_able.WordCounter
         {
             try
             {
-                _lock.EnterReadLock();
+                _lock.WaitOne();
                 return topWord.Count == 0;
             }
             finally
             {
-                _lock.ExitReadLock();
+                _lock.ReleaseMutex();
             }
         }
 
@@ -78,30 +81,34 @@ namespace Sorting_N_able.WordCounter
         {
             try
             {
-                _lock.EnterReadLock();
+                _lock.WaitOne();
                 return topWord[key];
             }
             finally
             {
-                _lock.ExitReadLock();
+                _lock.ReleaseMutex();
             }
         }
 
         public ConcurrentDictionary(int count)
         {
-            CountTopWord = 10;
+            CountTopWord = count;
+            topWord = new Dictionary<T, D>();
         }
 
         public void Add(T key, D value)
         {
             try
             {
-                _lock.EnterReadLock();
-                topWord.Add(key, value);
+                _lock.WaitOne();
+                if (!topWord.ContainsKey(key))
+                {
+                    topWord.Add(key, value);
+                }
             }
             finally
             {
-                _lock.ExitReadLock();
+                _lock.ReleaseMutex();
             }
         }
 
@@ -109,12 +116,12 @@ namespace Sorting_N_able.WordCounter
         {
             try
             {
-                _lock.EnterReadLock();
+                _lock.WaitOne();
                 topWord.Add(item.Key, item.Value);
             }
             finally
             {
-                _lock.ExitReadLock();
+                _lock.ReleaseMutex();
             }
         }
 
@@ -122,12 +129,12 @@ namespace Sorting_N_able.WordCounter
         {
             try
             {
-                _lock.EnterReadLock();
+                _lock.WaitOne();
                 return topWord.Contains(item);
             }
             finally
             {
-                _lock.ExitReadLock();
+                _lock.ReleaseMutex();
             }
         }
 
@@ -135,12 +142,12 @@ namespace Sorting_N_able.WordCounter
         {
             try
             {
-                _lock.EnterReadLock();
+                _lock.WaitOne();
                 return topWord.ContainsKey(key);
             }
             finally
             {
-                _lock.ExitReadLock();
+                _lock.ReleaseMutex();
             }
         }
 
@@ -148,12 +155,12 @@ namespace Sorting_N_able.WordCounter
         {
             try
             {
-                _lock.EnterReadLock();
+                _lock.WaitOne();
                 return topWord.GetEnumerator();
             }
             finally
             {
-                _lock.ExitReadLock();
+                _lock.ReleaseMutex();
             }
         }
 
@@ -162,12 +169,12 @@ namespace Sorting_N_able.WordCounter
 
             try
             {
-                _lock.EnterReadLock();
+                _lock.WaitOne();
                 return topWord.Remove(key);
             }
             finally
             {
-                _lock.ExitReadLock();
+                _lock.ReleaseMutex();
             }
         }
 

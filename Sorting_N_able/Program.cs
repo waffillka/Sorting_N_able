@@ -30,7 +30,17 @@
             //    Console.WriteLine(t);
             //}
 
-            //WordCounter.WordCounter.WordIterator("d:\\EPAM\\N-able\\Lessons\\FirstLessonSorting\\Sorting_N_able\\Sorting_N_able\\WordCounter\\TestText.txt");
+
+            var t = new WordCounter.WordCounter(3);
+            t.WordIteratorParallel(new string[] {
+                "d:\\EPAM\\N-able\\Lessons\\FirstLessonSorting\\Sorting_N_able\\Sorting_N_able\\WordCounter\\TestText.txt",
+                "d:\\EPAM\\N-able\\Lessons\\FirstLessonSorting\\Sorting_N_able\\Sorting_N_able\\WordCounter\\TestText_1.txt"
+            });
+
+            foreach (var item in t.GetDirectory())
+            {
+                System.Console.WriteLine(item.Key + ": " + item.Value);
+            }
         }
     }
 
