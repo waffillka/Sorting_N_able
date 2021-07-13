@@ -1,4 +1,8 @@
-﻿namespace Sorting_N_able
+﻿using System.Collections.Generic;
+using Sorting_N_able.TaskReaderWriter;
+using System.Threading;
+
+namespace Sorting_N_able
 {
     class Program
     {
@@ -31,16 +35,36 @@
             //}
 
 
-            var t = new WordCounter.WordCounter(3);
-            t.WordIteratorParallel(new string[] {
-                "d:\\EPAM\\N-able\\Lessons\\FirstLessonSorting\\Sorting_N_able\\Sorting_N_able\\WordCounter\\TestText.txt",
-                "d:\\EPAM\\N-able\\Lessons\\FirstLessonSorting\\Sorting_N_able\\Sorting_N_able\\WordCounter\\TestText_1.txt"
-            });
+            //var t = new WordCounter.WordCounter(3);
+            //t.WordIteratorParallel(new string[] {
+            //    "d:\\EPAM\\N-able\\Lessons\\FirstLessonSorting\\Sorting_N_able\\Sorting_N_able\\WordCounter\\TestText.txt",
+            //    "d:\\EPAM\\N-able\\Lessons\\FirstLessonSorting\\Sorting_N_able\\Sorting_N_able\\WordCounter\\TestText_1.txt"
+            //});
 
-            foreach (var item in t.GetDirectory())
+            //foreach (var item in t.GetDirectory())
+            //{
+            //    System.Console.WriteLine(item.Key + ": " + item.Value);
+            //}
+
+           var _pool = new Semaphore(0, 3);
+            List<Thread> threads = new();
+            var task = new TaskReaderWriter.TaskReaderWriter<int>();
+
+            for(int i = 0; i < 10; ++i)
             {
-                System.Console.WriteLine(item.Key + ": " + item.Value);
+                var t = new Thread(new ThreadStart(() => task.Write(i)));
+                var r = new Thread(new ThreadStart(() => task.Read(i)));
+                threads.Add(t);
+                threads.Add(r);
+                t.Start();
+                r.Start();
             }
+
+            foreach(var thread in threads)
+            {
+                thread.Join();
+            }
+            var u  = task;
         }
     }
 

@@ -55,7 +55,7 @@ namespace Sorting_N_able.WordCounter
             }
             finally
             {
-                _lock.ReleaseMutex();
+               _lock.ReleaseMutex();
             }
 
         }
@@ -151,12 +151,14 @@ namespace Sorting_N_able.WordCounter
                     }
 
                 }
-                ChengeOrAddItem(word, count);
+                //ChengeOrAddItem(word, count);
             }
             finally
             {
                 _lock.ReleaseMutex();
             }
+
+            ChengeOrAddItem(word, count);
         }
 
         public Dictionary<string, int> GetDirectory()

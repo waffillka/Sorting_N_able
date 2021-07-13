@@ -23,12 +23,12 @@ namespace Sorting_N_able.WordCounter
             {
                 try
                 {
-                    _lock.WaitOne();
+                   // _lock.WaitOne();
                     return topWord.Count;
                 }
                 finally
                 {
-                    _lock.ReleaseMutex();
+                   // _lock.ReleaseMutex();
                 }
             }
         }
@@ -37,12 +37,12 @@ namespace Sorting_N_able.WordCounter
         {
             try
             {
-                _lock.WaitOne();
+               // _lock.WaitOne();
                 return topWord.FirstOrDefault();
             }
             finally
             {
-                _lock.ReleaseMutex();
+                //_lock.ReleaseMutex();
             }
         }
 
@@ -50,7 +50,7 @@ namespace Sorting_N_able.WordCounter
         {
             try
             {
-                _lock.WaitOne();
+                //_lock.WaitOne();
                 if (topWord.ContainsKey(key))
                 {
                     topWord[key] = value;
@@ -60,7 +60,7 @@ namespace Sorting_N_able.WordCounter
             }
             finally
             {
-                _lock.ReleaseMutex();
+               // _lock.ReleaseMutex();
             }
         }
 
@@ -68,12 +68,12 @@ namespace Sorting_N_able.WordCounter
         {
             try
             {
-                _lock.WaitOne();
+                //_lock.WaitOne();
                 return topWord.Count == 0;
             }
             finally
             {
-                _lock.ReleaseMutex();
+               // _lock.ReleaseMutex();
             }
         }
 
@@ -81,12 +81,12 @@ namespace Sorting_N_able.WordCounter
         {
             try
             {
-                _lock.WaitOne();
+                //_lock.WaitOne();
                 return topWord[key];
             }
             finally
             {
-                _lock.ReleaseMutex();
+               // _lock.ReleaseMutex();
             }
         }
 
@@ -100,7 +100,7 @@ namespace Sorting_N_able.WordCounter
         {
             try
             {
-                _lock.WaitOne();
+                //_lock.WaitOne();
                 if (!topWord.ContainsKey(key))
                 {
                     topWord.Add(key, value);
@@ -108,7 +108,7 @@ namespace Sorting_N_able.WordCounter
             }
             finally
             {
-                _lock.ReleaseMutex();
+               // _lock.ReleaseMutex();
             }
         }
 
@@ -116,12 +116,12 @@ namespace Sorting_N_able.WordCounter
         {
             try
             {
-                _lock.WaitOne();
+               // _lock.WaitOne();
                 topWord.Add(item.Key, item.Value);
             }
             finally
             {
-                _lock.ReleaseMutex();
+                //_lock.ReleaseMutex();
             }
         }
 
@@ -129,12 +129,12 @@ namespace Sorting_N_able.WordCounter
         {
             try
             {
-                _lock.WaitOne();
+                //_lock.WaitOne();
                 return topWord.Contains(item);
             }
             finally
             {
-                _lock.ReleaseMutex();
+               // _lock.ReleaseMutex();
             }
         }
 
@@ -142,12 +142,12 @@ namespace Sorting_N_able.WordCounter
         {
             try
             {
-                _lock.WaitOne();
+               // _lock.WaitOne();
                 return topWord.ContainsKey(key);
             }
             finally
             {
-                _lock.ReleaseMutex();
+                //_lock.ReleaseMutex();
             }
         }
 
