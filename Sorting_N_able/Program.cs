@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Sorting_N_able.TaskReaderWriter;
 using System.Threading;
+using Sorting_N_able.TaskTest;
+using System;
 
 namespace Sorting_N_able
 {
@@ -46,25 +48,33 @@ namespace Sorting_N_able
             //    System.Console.WriteLine(item.Key + ": " + item.Value);
             //}
 
-           var _pool = new Semaphore(0, 3);
-            List<Thread> threads = new();
-            var task = new TaskReaderWriter.TaskReaderWriter<int>();
+            //var _pool = new Semaphore(0, 3);
+            // List<Thread> threads = new();
+            // var task = new TaskReaderWriter.TaskReaderWriter<int>();
 
-            for(int i = 0; i < 10; ++i)
-            {
-                var t = new Thread(new ThreadStart(() => task.Write(i)));
-                var r = new Thread(new ThreadStart(() => task.Read(i)));
-                threads.Add(t);
-                threads.Add(r);
-                t.Start();
-                r.Start();
-            }
+            // for(int i = 0; i < 30; ++i)
+            // {
+            //     if (i % 2 == 0)
+            //     {
+            //         var t = new Thread(new ThreadStart(() => task.Write(i)));
+            //         threads.Add(t);
+            //         t.Start();
+            //     }
+            //     var r = new Thread(new ThreadStart(() => task.Read(i)));
 
-            foreach(var thread in threads)
-            {
-                thread.Join();
-            }
-            var u  = task;
+            //     threads.Add(r);
+
+            //     r.Start();
+            // }
+
+            // foreach(var thread in threads)
+            // {
+            //     thread.Join();
+            // }
+
+            IFormatterFactory formatterFactory = new UpperCaseFormatterFactory();
+            Printer printer = new Printer(formatterFactory.CreateFormatter());
+            Console.WriteLine(printer.print("kjsbdfkjsdns"));
         }
     }
 

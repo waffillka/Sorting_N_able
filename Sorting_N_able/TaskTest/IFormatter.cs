@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sorting_N_able.TaskReaderWriter
+namespace Sorting_N_able.TaskTest
 {
-    class Reader
+    public interface IFormatter
     {
-        public void Read()
-        {
-
-        }
+        string Format(string input);
     }
 }
